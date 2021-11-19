@@ -1,0 +1,279 @@
+import random
+
+############################
+#resources
+###woodrate and stone rate would normally be at 1 but it would be to long to test
+wood = 0
+stone = 0
+iron = 0
+diamonds = 0
+woodrate = 100
+stonerate = 100
+#############################
+#pickaxes
+pick = ['wooden', 'stone', 'iron', 'diamond']
+woodenpick = 0
+stonepick = 0
+ironpick = 0
+diamondpick = 0
+picksum = woodenpick + stonepick + ironpick + diamondpick
+pickcost = 50
+#############################
+#axes
+axe = ['Wooden', 'Stone', 'Iron', 'Diamond']
+woodenaxe = 0
+stoneaxe = 0
+ironaxe = 0
+diamondaxe = 0
+axesum = woodenaxe + stoneaxe + ironaxe + diamondaxe
+axecost = 50
+
+#############################:
+def amount():
+  print('Wood amount ' + str(wood))
+  print('Stone amount ' + str(stone))
+  print('Iron amount ' + str(iron))
+  print('Diamond amount ' + str(diamonds))
+
+def pickcraft(desision):
+  if desision == 'w':
+    print('')
+    print('-------------Pickaxes-------------')
+    print('w-' + pick[0] + ' pick for 50 wood')
+    print('s-' + pick[1] + ' pick for 50 stone and wood')
+    print('i-' + pick[2] + ' pick for 50 iron, stone, and wood')
+    print('d-' + pick[3] + ' pick for 50 diamonds, iron, stone, and wood')
+    print('')
+    return input('Choose: w, s, i, or d If you want to go back press enter')
+  if picksum == 1:
+    print('')
+    print('-------------Pickaxes-------------')
+    print('s-' + pick[1] + ' pick for 50 stone, wood')
+    print('i-' + pick[2] + ' pick for 50 iron, stone, wood')
+    print('d-' + pick[3] + ' pick for 50 diamonds, iron, stone, wood')
+    print('')
+    return input('Choose: s, i, or d If you want to go back press enter')
+  elif picksum == 2:
+    print('')
+    print('-------------Pickaxes-------------')
+    print('i-' + pick[2] + ' pick for 50 iron, stone, wood')
+    print('d-' + pick[3] + ' pick for 50 diamonds, gold, iron, stone, wood')
+    print('')
+    return input('Choose: i or d If you want to go back press enter')
+  elif picksum == 3:
+    print('')
+    print('-------------Pickaxes-------------')
+    print('d-' + pick[3] + ' pick for 50 diamonds, gold, iron, stone, wood')
+    print('')
+    return input('Choose: d and If you want to go back press enter')
+  elif picksum == 4:
+    print("You've crafted every pickaxe!")
+    return input('press enter to leave')
+  
+def axecraft():
+  if axesum == 0:
+    print('')
+    print('-------------Axes-------------')
+    print('w-' + axe[0] + ' pick for 50 wood')
+    print('s-' + axe[1] + ' pick for 50 stone, wood')
+    print('i-' + axe[2] + ' pick for 50 iron, stone, wood')
+    print('d-' + axe[3] + ' pick for 50 diamonds, iron, stone, wood')
+    print('')
+    return input('Choose: w, s, i, or d If you want to go back press enter')
+  if axesum == 1:
+    print('')
+    print('-------------Axes-------------')
+    print('s-' + axe[1] + ' pick for 50 stone, wood')
+    print('i-' + axe[2] + ' pick for 50 iron, stone, wood')
+    print('d-' + axe[3] + ' pick for 50 diamonds, iron, stone, wood')
+    print('')
+    return input('Choose: s, i, or d If you want to go back press enter')
+  elif axesum == 2:
+    print('')
+    print('-------------Axes-------------')
+    print('i-' + axe[2] + ' pick for 50 iron, stone, wood')
+    print('d-' + axe[3] + ' pick for 50 diamonds, gold, iron, stone, wood')
+    print('')
+    return input('Choose: i or d If you want to go back press enter')
+  elif axesum == 3:
+    print('')
+    print('-------------Axes-------------')
+    print('d-' + axe[3] + ' pick for 50 diamonds, gold, iron, stone, wood')
+    print('')
+    return input('Choose: d  and If you want to go back press enter')
+  elif axesum == 4:
+    print("You've crafted every axe!")
+    return input('press enter to leave')
+    
+while(True):
+  print('')
+  action = input(' m to mine, c to craft, and w to cut wood ')
+  craft = 'p'
+
+  if action == 'm':
+    if random.randint(1, 5) == 3:
+      ironrate = int(stonerate)/2
+      print(str(ironrate) + 'Iron found')
+      iron += ironrate
+    if random.randint(1, 10) == 5:
+      diamondrate = int(stonerate)/4
+      print(str(diamondrate) + ' Diamonds found')
+      diamonds += diamondrate
+      print('Diamonds found')
+      amount()
+    print(str(stonerate) + " stone gathered")
+    stone += stonerate
+    amount()
+      
+  elif action == 'w':
+      print(str(woodrate) + " wood collected")
+      wood += int(woodrate)
+      print("wood count "+ str(wood))
+  
+  elif action == 'c':
+    while craft == 'p' or craft == 'a':
+      print("")
+      print("--------------Craft--------------")
+      amount()
+      print("")
+      print('p-for pickaxes')
+      print('a-for axes')
+      print("")
+      craft = input('Choose: p or a and if you want to go back, press enter')
+
+      if craft == 'p':
+        desision = input('Choose: w, s, i, or d If you want to go back press enter')
+        pickaxe = pickcraft(desision)
+        while pickaxe == 'w' or pickaxe == 's' or pickaxe == 'i' or pickaxe == 'd': 
+          print('')
+          
+          if pickaxe == 'w':
+            if wood >= pickcost:
+              print('')
+              print('Your pickaxe has gotten stronger!')
+              wood -= pickcost
+              stonerate *= 2
+              picksum += 1
+              w = True
+              print('You can mine 2 pieces of stone')
+              print('')
+            else:
+              print('')
+              print('Not enough wood')
+              print('')
+          elif pickaxe == 's':
+            if wood >= pickcost and stone >= pickcost:
+              print('')
+              print('Your pickaxe has gotten stronger!')
+              wood -= pickcost
+              stone -= pickcost
+              stonerate *= 2
+              picksum += 1
+              print('You can mine 4 pieces of stone')
+              print('')
+            else:
+              print('')
+              print('Not enough materials')
+              print('')
+          elif pickaxe == 'i':
+            if wood >= pickcost and stone >= pickcost and iron >= pickcost:
+              print('')
+              print('Your pickaxe has gotten stronger!')
+              wood -= pickcost
+              stone -= pickcost
+              iron -=pickcost
+              stonerate *= 2
+              picksum += 1
+              print('You can mine 8 pieces of stone')
+              print('')
+            else:
+              print('')
+              print('Not enough materials')
+              print('')
+          elif pickaxe == 'd':
+            if wood >= pickcost and stone >= pickcost and iron >= pickcost and diamonds >= pickcost:
+              print('')
+              print('Your pickaxe has gotten stronger!')
+              wood -= pickcost
+              stone -= pickcost
+              iron -= pickcost
+              diamonds -= pickcost
+              stonerate *= 2
+              picksum += 1
+              print('You can get 16 pieces of stone')
+              print('')
+            else:
+              print('')
+              print('Not enough materials')
+              print('')
+          else:
+            break
+          pickaxe = pickcraft()
+
+      if craft == 'a':
+        axes = axecraft()
+        while axes == 'w' or axes == 's' or axes == 'i' or axes == 'd': 
+          print('')
+          
+          if axes == 'w':
+            if wood >= axecost:
+              print('')
+              print('Your axe has gotten stronger!')
+              wood -= axecost
+              woodrate *= 2
+              axesum += 1
+              print('You can cut 2 pieces of wood')
+              print('')
+            else:
+              print('')
+              print('Not enough wood')
+              print('')
+          elif axes == 's':
+            if wood >= axecost and stone >= axecost:
+              print('')
+              print('Your axe has gotten stronger!')
+              wood -= axecost
+              stone -= axecost
+              woodrate *= 2
+              axesum += 1
+              print('You can cut 4 pieces of wood')
+              print('')
+            else:
+              print('')
+              print('Not enough materials')
+              print('')
+          elif axes == 'i':
+            if wood >= axecost and stone >= axecost and iron >= axecost:
+              print('')
+              print('Your axe has gotten stronger!')
+              wood -= axecost
+              stone -= axecost
+              iron -= axecost
+              woodrate *= 2
+              axesum += 1
+              print('You can cut 8 pieces of wood')
+              print('')
+            else:
+              print('')
+              print('Not enough materials')
+              print('')
+          elif axes == 'd':
+            if wood >= axecost and stone >= axecost and iron >= axecost and diamonds >= axecost:
+              print('')
+              print('Your Axe has gotten stronger!')
+              wood -= axecost
+              stone -= axecost
+              iron -= axecost
+              diamonds -= axecost
+              woodrate *= 2
+              axesum += 1
+              print('You can cut 16 pieces of wood')
+              print('')
+            else:
+              print('')
+              print('Not enough materials')
+              print('')
+          else:
+            break
+          axes = axecraft()
+          
